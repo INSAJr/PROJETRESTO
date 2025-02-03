@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paiement - Sarafina</title>
+    
+    <!-- CSS -->
+     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/payment.css">
+     <link rel="stylesheet" href="css/payment-theme.css">
+      <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="light-theme">
+    <nav>
+        <button class="theme-toggle" aria-label="Changer le thème">
+            <span class="icon sun-icon">
+                <i class="fas fa-sun"></i>
+            </span>
+            <span class="icon moon-icon">
+                <i class="fas fa-moon"></i>
+            </span>
+        </button>
+    </nav>
+    <div class="payment-container">
+        <header class="payment-header">
+             <div class="header-content">
+                    <a href="index.html" class="back-button">
+                       <i class="fas fa-arrow-left"></i> Retour
+                     </a>
+                    <img src="assets/images/logo-sarafina.jpg" alt="Sarafina Logo" class="logo">
+
+                
+            </div>
+            <h1>Récapitulatif de la Commande</h1>
+
+        </header>
+
+        <main class="payment-main">
+            <div class="order-summary">
+                <div class="order-details">
+                    <h2>Détails de la Commande</h2>
+                    <div class="table-info">
+                          <i class="fas fa-utensils"></i>
+                        <p>Numéro de table : <span id="table-number-display"></span></p>
+                    </div>
+                    <p>Date : <span id="order-date-display"></span></p>
+                </div>
+
+                <div id="order-items" class="order-items modern-grid">
+                    <!-- Les articles de la commande seront insérés ici dynamiquement -->
+                </div>
+
+                <div class="order-total modern-total">
+                    <h3>Total à payer</h3>
+                    <p id="order-total-display" class="total-amount animated-price">0 FCFA</p>
+                </div>
+                 <form id="payment-form">
+                  <div class="payment-methods-section">
+                       <h2>Choisissez votre méthode de Paiement</h2>
+                          <div class="payment-methods modern-payment-grid">
+                                <label class="payment-method wave-method" data-method="wave">
+                                       <input type="radio" name="payment-method" value="wave" hidden>
+                                        <div class="method-content">
+                                            <div class="method-logo-container">
+                                                <img src="assets/images/logo-wave.png" alt="Logo Wave" class="method-logo">
+                                            </div>
+                                            <div class="method-details">
+                                                <h4>Wave</h4>
+                                                <p>Paiement mobile rapide</p>
+                                            </div>
+                                            <i class="fas fa-chevron-right method-select"></i>
+                                        </div>
+                                  </label>
+                                 <label class="payment-method orange-method" data-method="orange-money">
+                                         <input type="radio" name="payment-method" value="orange-money" hidden>
+                                         <div class="method-content">
+                                            <div class="method-logo-container">
+                                                <img src="assets/images/logo-orange-money.png" alt="Logo Orange Money" class="method-logo">
+                                            </div>
+                                            <div class="method-details">
+                                                <h4>Orange Money</h4>
+                                                <p>Paiement sécurisé</p>
+                                            </div>
+                                            <i class="fas fa-chevron-right method-select"></i>
+                                         </div>
+                                   </label>
+                                <label class="payment-method cash-method" data-method="cash">
+                                   <input type="radio" name="payment-method" value="cash" hidden>
+                                   <div class="method-content">
+                                        <div class="method-logo-container">
+                                            <img src="assets/images/argent.png" alt="Logo espèces" class="method-logo">
+                                        </div>
+                                        <div class="method-details">
+                                            <h4>Espèces</h4>
+                                            <p>Paiement sur place</p>
+                                        </div>
+                                        <i class="fas fa-clock method-select"></i>
+                                   </div>
+                                 </label>
+                           </div>
+                       <button id="confirm-payment" class="action-button modern-button">
+                         <i class="fas fa-check"></i> Confirmer le Paiement
+                        </button>
+                    </div>
+                  </form>
+            </div>
+         </main>
+    </div>
+  <!-- Scripts -->
+    <script src="https://kit.fontawesome.com/your-kit-code.js" crossorigin="anonymous"></script>
+       <script src="js/global-theme.js"></script>
+    <script src="js/payment.js"></script>
+     <script src="js/cart.js"></script>
+    <script>
+        // Exemple de données de commande
+        const orderData = {
+            orderId: "12345", // Remplacez par l'ID de commande dynamique
+            items: [
+                { product: "Produit A", quantity: 2, price: 20 },
+                { product: "Produit B", quantity: 1, price: 15 }
+            ],
+            total: 55 // Remplacez par le total dynamique
+        };
+
+        // Stocker les données de commande dans localStorage
+        localStorage.setItem("orderData", JSON.stringify(orderData));
+    </script>
+</body>
+</html>

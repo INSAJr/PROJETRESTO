@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - SARAFINA</title>
+    <link rel="stylesheet" href="../css/admindashboard.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script type="module" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script type="module" src="../js/global-theme.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body class="light-theme">
+    <div class="dashboard">
+        <!-- Menu latéral -->
+        <nav class="sidebar" aria-label="Menu latéral" role="navigation">
+            <div class="logo" aria-label="Logo SARAFINA">
+                <img src="../assets/images/logo-sarafina.jpg" alt="SARAFINA Logo">
+            </div>
+            <ul class="nav-menu" role="menu">
+                <li class="nav-item active" data-section="new-orders" role="menuitem">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Nouvelles Commandes</span>
+                </li>
+                <li class="nav-item" data-section="personnel" role="menuitem">
+                    <i class="fas fa-users"></i>
+                    <span>Personnel</span>
+                </li>
+                <li class="nav-item" data-section="stats" role="menuitem">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Statistiques</span>
+                </li>
+                <li class="nav-item" data-section="settings" role="menuitem">
+                    <i class="fas fa-cog"></i>
+                    <span>Paramètres</span>
+                </li>
+            </ul>
+            <button class="theme-toggle" aria-label="Changer le thème">
+                <span class="icon sun-icon">
+                    <i class="fas fa-sun"></i>
+                </span>
+                <span class="icon moon-icon">
+                    <i class="fas fa-moon"></i>
+                </span>
+            </button>
+        </nav>
+
+        <!-- Contenu principal -->
+        <main class="main-content">
+            <!-- Section des nouvelles commandes -->
+            <section id="new-orders" class="orders-section active">
+                <div class="section-header">
+                    <h2>Nouvelles Commandes</h2>
+                    <span class="orders-count" aria-label="Nombre de commandes en cours">0</span>
+                </div>
+                <div class="orders-grid" aria-live="polite"></div>
+            </section>
+            <!-- Section du Personnel -->
+            <section id="personnel" class="orders-section">
+                <div class="section-header">
+                    <h2>Gestion du Personnel</h2>
+                </div>
+                <div class="personnel-grid">
+                    <!-- Formulaire d'ajout de caissier -->
+                    <div class="personnel-card">
+                        <h3>Ajouter un Caissier</h3>
+                        <form id="add-cashier-form" class="personnel-form">
+                            <div class="form-group">
+                                <label for="cashier-name">Nom du Caissier</label>
+                                <input type="text" id="cashier-name" required placeholder="Nom complet">
+                                <div class="error-message"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cashier-username">Identifiant</label>
+                                <input type="text" id="cashier-username" required placeholder="Identifiant de connexion">
+                                <div class="error-message"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cashier-password">Mot de passe</label>
+                                <input type="password" id="cashier-password" required placeholder="Mot de passe">
+                                <div class="error-message"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cashier-confirm-password">Confirmer le mot de passe</label>
+                                <input type="password" id="cashier-confirm-password" required placeholder="Confirmer le mot de passe">
+                                <div class="error-message"></div>
+                            </div>
+                            <button type="submit" class="btn-primary" aria-label="Ajouter le Caissier">Ajouter le Caissier</button>
+                        </form>
+                    </div>
+
+                    <!-- Liste des caissiers -->
+                    <div class="personnel-card">
+                        <h3>Liste des Caissiers</h3>
+                        <div class="cashiers-list" id="cashiers-list">
+                            <!-- La liste des caissiers sera générée dynamiquement ici -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Section des statistiques -->
+            <section id="stats" class="orders-section">
+                <div class="section-header">
+                    <h2>Statistiques</h2>
+                    <div class="stats-filters">
+                        <select id="stats-period" class="stats-select" aria-label="Sélectionnez la période des statistiques">
+                            <option value="day">Aujourd'hui</option>
+                            <option value="week">Cette semaine</option>
+                            <option value="month">Ce mois</option>
+                            <option value="year">Cette année</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <h3 id="total-orders-title" aria-label="Commandes Totales">Commandes Totales</h3>
+                        <p id="total-orders">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Revenus</h3>
+                        <p id="total-revenue-stats">0 FCFA</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Commandes en Attente</h3>
+                        <p id="pending-orders-stats">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Commandes Terminées</h3>
+                        <p id="completed-orders-stats">0</p>
+                    </div>
+                </div>
+
+                <!-- Graphiques des statistiques -->
+                <div class="stats-charts">
+                    <!-- Statistiques journalières -->
+                    <div class="chart-card">
+                        <h3>Statistiques Journalières</h3>
+                        <div class="chart-container">
+                            <canvas id="daily-stats-chart"></canvas>
+                        </div>
+                        <div id="stats-report" class="stats-report"></div>
+                    </div>
+
+                    <!-- Statistiques mensuelles -->
+                    <div class="chart-card">
+                        <h3>Statistiques Mensuelles</h3>
+                        <div class="chart-container">
+                            <canvas id="monthly-stats-chart"></canvas>
+                        </div>
+                        <div id="monthly-stats-report" class="stats-report"></div>
+                    </div>
+                </div>
+                <div class="stats-details">
+                    <div class="stats-chart">
+                        <canvas id="revenue-chart"></canvas>
+                    </div>
+                    <div class="stats-summary">
+                        <div class="summary-card">
+                            <h4>Top 5 Plats</h4>
+                            <ul id="top-items" class="summary-list"></ul>
+                        </div>
+                        <div class="summary-card">
+                            <h4>Heures de Pointe</h4>
+                            <ul id="peak-hours" class="summary-list"></ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Section des paramètres -->
+            <section id="settings" class="orders-section">
+                <div class="section-header">
+                    <h2>Paramètres</h2>
+                </div>
+                <div class="settings-container">
+                    <div class="settings-card">
+                        <h3>Informations du restaurant</h3>
+                        <div class="settings-form">
+                            <div class="form-group">
+                                <input type="text" id="restaurant-name" placeholder="Nom du restaurant" aria-label="Nom du restaurant">
+                                <div class="error-message"></div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="restaurant-address" placeholder="Adresse" aria-label="Adresse">
+                                <div class="error-message"></div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="restaurant-phone" placeholder="Numéro de téléphone" aria-label="Numéro de téléphone">
+                                <div class="error-message"></div>
+                            </div>
+                            <button id="save-settings-btn" class="action-button save" aria-label="Enregistrer les paramètres">Enregistrer</button>
+                        </div>
+                    </div>
+                    <div class="settings-card">
+                        <h3>Modifier le logo</h3>
+                        <div class="settings-form">
+                            <input type="file" id="restaurant-logo" accept="image/*">
+                            <button id="save-logo-btn" class="action-button save" role="button">Enregistrer</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script>
+        // Récupérer les données de commande du localStorage
+        const orderData = JSON.parse(localStorage.getItem("orderData"));
+
+        if (orderData) {
+            // Afficher les informations de commande sur la page admin
+            console.log(`ID de commande: ${orderData.orderId}`);
+            orderData.items.forEach(item => {
+                console.log(`Produit: ${item.product}, Quantité: ${item.quantity}, Prix: ${item.price}`);
+            });
+            console.log(`Total: ${orderData.total}`);
+            // Vous pouvez également les afficher dans des éléments HTML spécifiques
+        }
+    </script>
+    <script type="module" src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,450 @@
+<?php
+header('Content-Type: text/html; charset=utf-8'); 
+?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarafina - Restaurant</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/menu-scroll.css">
+     <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="light-theme">
+    <nav>
+        <button class="theme-toggle" aria-label="Changer le thème">
+            <span class="icon sun-icon">
+                <i class="fas fa-sun"></i>
+            </span>
+            <span class="icon moon-icon">
+                <i class="fas fa-moon"></i>
+            </span>
+        </button>
+         <button id="cart-button" class="cart-button" data-empty="true">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count">0</span>
+        </button>
+    </nav>
+
+    <!-- Modal du panier -->
+     <div id="cart-modal" class="cart-modal">
+        <div class="cart-modal__overlay"></div>
+        <div class="cart-modal__container">
+            <div class="cart-modal__header">
+                <h2>Mon Panier</h2>
+                <button id="close-cart-modal" class="cart-modal__close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="cart-modal__content">
+                <div id="cart-items-compact" class="cart-modal__items-compact">
+                    <!-- Les miniatures des articles seront insérées ici dynamiquement -->
+                </div>
+
+                <div class="cart-modal__empty">
+                    <i class="fas fa-shopping-cart"></i>
+                    <p>Votre panier est vide</p>
+                </div>
+
+                <div class="cart-modal__total-compact">
+                    <span>Total</span>
+                    <span id="cart-total-compact">0 FCFA</span>
+                </div>
+
+                <div class="cart-modal__table-input-compact">
+                    <label for="table-number">
+                        <i class="fas fa-utensils"></i>
+                        Numéro de table
+                    </label>
+                    <div class="input-group">
+                        <input type="number" 
+                               id="table-number" 
+                               min="1" 
+                               max="50" 
+                               placeholder="N° de table"
+                               required>
+                        <i class="fas fa-check validation-icon"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cart-modal__actions-compact">
+                <button id="clear-cart" class="cart-modal__button cart-modal__button--clear">
+                    <i class="fas fa-trash"></i>
+                    Vider
+                </button>
+                <button class="cart-modal__button cart-modal__button--checkout checkout-btn">
+                    <i class="fas fa-shopping-cart"></i>
+                    Commander
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <header class="hero">
+        <div class="hero-content">
+            <img src="assets/images/logo-sarafina.jpg" alt="Sarafina Logo" class="hero-logo">
+            <h1>Sarafina</h1>
+            <p>Une expérience culinaire unique</p>
+        </div>
+    </header>
+     <main role="main">
+        <div class="menu-container">
+        <section id="plats" class="menu-section">
+            <h2>Nos Plats</h2>
+            <div class="menu-rows-container">
+                <div class="menu-grid row-1">
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="assets/images/burger.jpg" alt="Image de Hamburger" loading="lazy" />
+                        </div>
+                        <div class="menu-item-info">
+                            <h3>Hamburger Royal</h3>
+                            <p class="price">3500 FCFA</p>
+                            <button class="add-to-cart" 
+                                data-name="Hamburger Royal" 
+                                data-price="3500" 
+                                data-image="assets/images/burger.jpg">
+                                Ajouter au panier
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="assets/images/poulet-roti.jpg" alt="Image de Poulet Rôti" loading="lazy" />
+                        </div>
+                        <div class="menu-item-info">
+                            <h3>Poulet Rôti</h3>
+                            <p class="price">4000 FCFA</p>
+                            <button class="add-to-cart" 
+                                data-name="Poulet Rôti" 
+                                data-price="4000" 
+                                data-image="assets/images/poulet-roti.jpg">
+                                Ajouter au panier
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="assets/images/pizza.jpg" alt="Image de Pizza" loading="lazy" />
+                        </div>
+                        <div class="menu-item-info">
+                            <h3>Pizza Margherita</h3>
+                            <p class="price">5000 FCFA</p>
+                            <button class="add-to-cart" 
+                                data-name="Pizza Margherita" 
+                                data-price="5000" 
+                                data-image="assets/images/pizza.jpg">
+                                Ajouter au panier
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="assets/images/salade.jpg" alt="Image de Salade" loading="lazy" />
+                        </div>
+                        <div class="menu-item-info">
+                            <h3>Salade César</h3>
+                            <p class="price">2500 FCFA</p>
+                            <button class="add-to-cart" 
+                                data-name="Salade César" 
+                                data-price="2500" 
+                                data-image="assets/images/salade.jpg">
+                                Ajouter au panier
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="assets/images/shawarma.jpg" alt="Image de Shawarma" loading="lazy" />
+                        </div>
+                        <div class="menu-item-info">
+                            <h3>Shawarma</h3>
+                            <p class="price">2000 FCFA</p>
+                            <button class="add-to-cart" 
+                                data-name="Shawarma" 
+                                data-price="2000" 
+                                data-image="assets/images/shawarma.jpg">
+                                Ajouter au panier
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-grid row-2">
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="assets/images/bolognaise.png" alt="Image de Pâtes Bolognaise" loading="lazy" />
+                        </div>
+                        <div class="menu-item-info">
+                            <h3>Pâtes Bolognaise</h3>
+                            <p class="price">3000 FCFA</p>
+                            <button class="add-to-cart" 
+                                data-name="Pâtes Bolognaise" 
+                                data-price="3000" 
+                                data-image="assets/images/bolognaise.png">
+                                Ajouter au panier
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="assets/images/poisson-grille.jpg" alt="Image de Poisson Grillé" loading="lazy" />
+                        </div>
+                        <div class="menu-item-info">
+                            <h3>Poisson Grillé</h3>
+                            <p class="price">4500 FCFA</p>
+                            <button class="add-to-cart" 
+                                data-name="Poisson Grillé" 
+                                data-price="4500" 
+                                data-image="assets/images/poisson-grille.jpg">
+                                Ajouter au panier
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="assets/images/lasagne.jpg" alt="Image de Lasagne" loading="lazy" />
+                        </div>
+                        <div class="menu-item-info">
+                            <h3>Lasagne Maison</h3>
+                            <p class="price">4000 FCFA</p>
+                            <button class="add-to-cart" 
+                                data-name="Lasagne Maison" 
+                                data-price="4000" 
+                                data-image="assets/images/lasagne.jpg">
+                                Ajouter au panier
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="assets/images/steak-frite.jpg" alt="Image de Steak" loading="lazy" />
+                        </div>
+                        <div class="menu-item-info">
+                            <h3>Steak Frites</h3>
+                            <p class="price">5500 FCFA</p>
+                            <button class="add-to-cart" 
+                                data-name="Steak Frites" 
+                                data-price="5500" 
+                                data-image="assets/images/steak-frite.jpg">
+                                Ajouter au panier
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="assets/images/riz-au-poisson.jpeg" alt="Image de Riz au Poisson" loading="lazy" />
+                        </div>
+                        <div class="menu-item-info">
+                            <h3>Riz au Poisson</h3>
+                            <p class="price">3500 FCFA</p>
+                            <button class="add-to-cart" 
+                                data-name="Riz au Poisson" 
+                                data-price="3500" 
+                                data-image="assets/images/riz-au-poisson.jpeg">
+                                Ajouter au panier
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="boissons" class="menu-section">
+            <h2>Nos Boissons</h2>
+            <div class="menu-rows-container">
+                <div class="menu-grid row-1">
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="assets/images/coca.jpg" alt="Image de Coca Cola" loading="lazy" />
+                        </div>
+                        <div class="menu-item-info">
+                            <h3>Coca Cola</h3>
+                            <p class="price">1000 FCFA</p>
+                            <button class="add-to-cart" 
+                                data-name="Coca Cola" 
+                                data-price="1000" 
+                                data-image="assets/images/coca.jpg">
+                                Ajouter au panier
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="assets/images/fanta.jpg" alt="Image de Fanta" loading="lazy" />
+                        </div>
+                        <div class="menu-item-info">
+                            <h3>Fanta Orange</h3>
+                            <p class="price">1000 FCFA</p>
+                            <button class="add-to-cart" 
+                                data-name="Fanta Orange" 
+                                data-price="1000" 
+                                data-image="assets/images/fanta.jpg">
+                                Ajouter au panier
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="assets/images/sprite.jpg" alt="Image de Sprite" loading="lazy" />
+                        </div>
+                        <div class="menu-item-info">
+                            <h3>Sprite</h3>
+                            <p class="price">1000 FCFA</p>
+                            <button class="add-to-cart" 
+                                data-name="Sprite" 
+                                data-price="1000" 
+                                data-image="assets/images/sprite.jpg">
+                                Ajouter au panier
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="assets/images/pepsi.jpg" alt="Image de Pepsi" loading="lazy" />
+                        </div>
+                        <div class="menu-item-info">
+                            <h3>Pepsi</h3>
+                            <p class="price">1000 FCFA</p>
+                            <button class="add-to-cart" 
+                                data-name="Pepsi" 
+                                data-price="1000" 
+                                data-image="assets/images/pepsi.jpg">
+                                Ajouter au panier
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="assets/images/schweppes.jpg" alt="Image de Schweppes" loading="lazy" />
+                        </div>
+                        <div class="menu-item-info">
+                            <h3>Schweppes Agrumes</h3>
+                            <p class="price">1000 FCFA</p>
+                            <button class="add-to-cart" 
+                                data-name="Schweppes Agrumes" 
+                                data-price="1000" 
+                                data-image="assets/images/schweppes.jpg">
+                                Ajouter au panier
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-grid row-2">
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="assets/images/jus-bissap.jpg" alt="Image de Jus de Bissap" loading="lazy" />
+                        </div>
+                        <div class="menu-item-info">
+                            <h3>Jus de Bissap</h3>
+                            <p class="price">1500 FCFA</p>
+                            <button class="add-to-cart" 
+                                data-name="Jus de Bissap" 
+                                data-price="1500" 
+                                data-image="assets/images/jus-bissap.jpg">
+                                Ajouter au panier
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="assets/images/jus-bouye.jpg" alt="Image de Jus de Bouye" loading="lazy" />
+                        </div>
+                        <div class="menu-item-info">
+                            <h3>Jus de Bouye</h3>
+                            <p class="price">1500 FCFA</p>
+                            <button class="add-to-cart" 
+                                data-name="Jus de Bouye" 
+                                data-price="1500" 
+                                data-image="assets/images/jus-bouye.jpg">
+                                Ajouter au panier
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="assets/images/jus-gingembre.jpg" alt="Image de Jus de Gingembre" loading="lazy" />
+                        </div>
+                        <div class="menu-item-info">
+                            <h3>Jus de Gingembre</h3>
+                            <p class="price">1500 FCFA</p>
+                            <button class="add-to-cart" 
+                                data-name="Jus de Gingembre" 
+                                data-price="1500" 
+                                data-image="assets/images/jus-gingembre.jpg">
+                                Ajouter au panier
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="assets/images/jus-tamarin.jpg" alt="Image de Jus de Tamarin" loading="lazy" />
+                        </div>
+                        <div class="menu-item-info">
+                            <h3>Jus de Tamarin</h3>
+                            <p class="price">1500 FCFA</p>
+                            <button class="add-to-cart" 
+                                data-name="Jus de Tamarin" 
+                                data-price="1500" 
+                                data-image="assets/images/jus-tamarin.jpg">
+                                Ajouter au panier
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-frame">
+                            <img src="assets/images/jus-ditakh.jpg" alt="Image de Jus de Ditakh" loading="lazy" />
+                        </div>
+                        <div class="menu-item-info">
+                            <h3>Jus de Ditakh</h3>
+                            <p class="price">1500 FCFA</p>
+                            <button class="add-to-cart" 
+                                data-name="Jus de Ditakh" 
+                                data-price="1500" 
+                                data-image="assets/images/jus-ditakh.jpg">
+                                Ajouter au panier
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    </main>
+
+    <footer>
+        <p>© 2024 Sarafina. Tous droits réservés.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://kit.fontawesome.com/your-kit-code.js" crossorigin="anonymous"></script>
+   <script src="js/cart.js"></script>
+    <script src="js/global-theme.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/modal.js"></script>
+    
+</body>
+</html>

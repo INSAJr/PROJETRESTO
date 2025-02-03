@@ -1,0 +1,301 @@
+/* Design System SARAFINA - Admin Dashboard */
+:root {
+    --primary-dark:     #660017;    /* Bordeaux profond */
+    --primary-light:    #800020;    /* Bordeaux riche */
+    --secondary-dark:   #2C1810;    /* Marron foncé */
+    --accent-gold:      #D4AF37;    /* Or vintage */
+    --background-dark:  #1A1A1A;    /* Noir charbon */
+    --text-light:       #E1E1E1;    /* Gris clair */
+    --text-muted:       #A0A0A0;    /* Gris moyen */
+    --card-background:  #2D2D2D;    /* Gris très sombre */
+
+    --border-radius-sm: 8px;
+    --border-radius-md: 12px;
+    --transition-speed: 0.3s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: all var(--transition-speed) ease;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, var(--background-dark), var(--secondary-dark));
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: 100vh;
+}
+
+/* Sidebar Design */
+.sidebar {
+    background: linear-gradient(45deg, var(--secondary-dark), var(--background-dark));
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    transition: background 0.3s ease;
+} 
+/* Ajoutez cette accolade à la fin */
+
+.logo {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.logo img {
+    width: 150px;
+    border-radius: 50%;
+    border: 3px solid var(--accent-gold);
+    transition: transform var(--transition-speed);
+}
+
+.logo img:hover {
+    transform: scale(1.05);
+}
+
+.nav-menu {
+    list-style: none;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    border-radius: var(--border-radius-md);
+    color: var(--text-light);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: color 0.3s ease;
+}
+
+.nav-item:hover {
+    color: var(--accent-gold);
+}
+
+.nav-item i {
+    font-size: 1.2rem;
+    color: var(--accent-gold);
+}
+
+.nav-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+    transition: all var(--transition-speed);
+}
+
+.nav-item:hover::before {
+    left: 0;
+}
+
+.nav-item.active {
+    background-color: var(--accent-gold);
+    color: var(--secondary-dark);
+}
+
+/* Main Content */
+.main-content {
+    padding: 2rem;
+    background: var(--card-background);
+    border-radius: var(--border-radius-md);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
+}
+
+/* Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.stat-card {
+    background: var(--card-background);
+    border-radius: var(--border-radius-md);
+    padding: 1.5rem;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    text-align: center;
+    transition: transform var(--transition-speed);
+}
+
+.stat-card:hover {
+    transform: translateY(-10px);
+}
+
+.stat-card h3 {
+    color: var(--accent-gold);
+    margin-bottom: 1rem;
+}
+
+.stat-card p {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-light);
+}
+/* Personnel Section */
+.personnel-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.personnel-card {
+    background: var(--card-background);
+    border-radius: var(--border-radius-md);
+    padding: 1.5rem;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+     border: 1px solid rgba(212, 175, 55, 0.1);
+}
+.personnel-card h3 {
+    color: var(--accent-gold);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.personnel-form {
+  display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.personnel-form .form-group {
+  margin: 0;
+}
+
+.personnel-form .form-group label {
+  display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-muted);
+     font-weight: 500;
+}
+.personnel-form input {
+ width: 100%;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: var(--border-radius-sm);
+    color: var(--text-light);
+    font-size: 1rem;
+}
+
+.personnel-form input:focus {
+   outline: none;
+  border-color: var(--accent-gold);
+}
+
+.personnel-form button {
+     margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    background: var(--accent-gold);
+    color: var(--secondary-dark);
+    border: none;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    transition: transform var(--transition-speed);
+      font-size: 1rem;
+}
+.personnel-form button:hover {
+    transform: scale(1.05);
+}
+/* Settings Section */
+.settings-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+.settings-card {
+    background: var(--card-background);
+    border-radius: var(--border-radius-md);
+    padding: 1.5rem;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.settings-card h3 {
+    color: var(--accent-gold);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.settings-form {
+   display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.settings-form .form-group {
+   margin: 0;
+}
+
+.settings-form input {
+ width: 100%;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: var(--border-radius-sm);
+    color: var(--text-light);
+    font-size: 1rem;
+}
+
+.settings-form input:focus {
+   outline: none;
+    border-color: var(--accent-gold);
+}
+
+.settings-form button {
+   margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    background: var(--accent-gold);
+    color: var(--secondary-dark);
+    border: none;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    transition: transform var(--transition-speed);
+      font-size: 1rem;
+}
+
+.settings-form button:hover {
+  transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        position: static;
+        width: 100%;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--card-background);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-gold);
+    border-radius: var(--border-radius-sm);
+}

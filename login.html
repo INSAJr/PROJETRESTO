@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - SARAFINA</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+            color: #d4af37;
+            font-family: 'Cinzel', serif;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .login-card {
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 1px solid #d4af37;
+            border-radius: 12px;
+            padding: 30px;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        h2 {
+            background: linear-gradient(to right, #FF0000, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            font-size: 28px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0 0 30px 0;
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #d4af37;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            background-color: rgba(30, 30, 30, 0.5);
+            border: 1px solid #d4af37;
+            border-radius: 8px;
+            color: #d4af37;
+            font-family: 'Cinzel', serif;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #FFD700;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+        }
+
+        button {
+            background: linear-gradient(to right, #FF0000, #FFD700);
+            color: #000000;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-family: 'Cinzel', serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .error-message {
+            background-color: rgba(255, 0, 0, 0.2);
+            border: 1px solid #FF0000;
+            color: #FF0000;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        /* Animation de chargement */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading {
+            display: none;
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(0, 0, 0, 0.3);
+            border-top: 3px solid #000000;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        button.loading {
+            background: linear-gradient(to right, #d4af37, #FFD700);
+            padding-right: 50px;
+            position: relative;
+            cursor: not-allowed;
+        }
+
+        button.loading::after {
+            content: '';
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0, 0, 0, 0.5);
+            border-top: 3px solid #000000;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        /* Responsive design */
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            input, button {
+                padding: 10px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-card">
+            <img src="assets/images/logo-sarafina.jpg" alt="SARAFINA Logo" class="logo">
+            <h2>Connexion Caissier</h2>
+            <div id="error-message" class="error-message"></div>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">Identifiant</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" id="login-button">Se connecter</button>
+                <div id="loading" class="loading"></div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+            const loginButton = document.getElementById('login-button');
+            const loading = document.getElementById('loading');
+
+            // Réinitialiser les messages d'erreur
+            errorMessage.style.display = 'none';
+            errorMessage.textContent = '';
+            
+            // Afficher le chargement
+            loginButton.disabled = true;
+            loginButton.classList.add('loading');
+
+            try {
+                console.log('Tentative de connexion avec:', { username });
+                const response = await fetch('http://localhost/sarafina/backend/api/auth.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+
+                console.log('Statut de la réponse:', response.status);
+                const responseText = await response.text();
+                console.log('Réponse brute:', responseText);
+
+                let data;
+                try {
+                    data = JSON.parse(responseText);
+                    console.log('Données parsées:', data);
+                } catch (e) {
+                    console.error('Erreur de parsing JSON:', e);
+                    throw new Error('Le serveur a renvoyé une réponse invalide');
+                }
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Erreur de connexion');
+                }
+
+                if (data.success) {
+                    console.log('Connexion réussie');
+                    // Stocker les informations de connexion
+                    localStorage.setItem('cashier', JSON.stringify(data.cashier));
+                    localStorage.setItem('token', data.token);
+
+                    // Rediriger vers le dashboard
+                    window.location.href = 'cashier/cashierdashboard.html';
+                } else {
+                    throw new Error(data.error || 'Erreur inconnue lors de la connexion');
+                }
+            } catch (error) {
+                console.error('Erreur complète:', error);
+                errorMessage.textContent = error.message;
+                errorMessage.style.display = 'block';
+            } finally {
+                // Réactiver le bouton dans tous les cas
+                loginButton.disabled = false;
+                loginButton.classList.remove('loading');
+            }
+        });
+
+        // Vérifier si l'utilisateur est déjà connecté
+        document.addEventListener('DOMContentLoaded', () => {
+            const token = localStorage.getItem('token');
+            const cashier = localStorage.getItem('cashier');
+
+            if (token && cashier) {
+                window.location.href = 'cashier/cashierdashboard.html';
+            }
+        });
+    </script>
+</body>
+</html>

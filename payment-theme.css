@@ -1,0 +1,109 @@
+/* Variables de thème avec dégradés */
+:root {
+    /* Thème Clair */
+    --light-bg-gradient: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+    --light-text-color: #333;
+    --light-primary-color: #ff6b6b;
+    --light-secondary-color: #4ecdc4;
+    --light-background: #f4f4f4;
+    
+    /* Thème Sombre */
+    --dark-bg-gradient: linear-gradient(135deg, #141e30 0%, #243b55 100%);
+    --dark-text-color: #fff; /* Mise à jour pour un meilleur contraste */
+    --dark-primary-color: #8b0000;
+    --dark-secondary-color: #4a0e4e;
+    --dark-background: #121212;
+}
+
+/* Styles de base pour les thèmes */
+html[data-theme="light"],
+body[data-theme="light"] {
+    --bg-gradient: var(--light-bg-gradient);
+    --text-color: var(--light-text-color);
+    --primary-color: var(--light-primary-color);
+    --secondary-color: var(--light-secondary-color);
+    --background-color: var(--light-background);
+}
+
+html[data-theme="dark"],
+body[data-theme="dark"] {
+    --bg-gradient: var(--dark-bg-gradient);
+    --text-color: var(--dark-text-color);
+    --primary-color: var(--dark-primary-color);
+    --secondary-color: var(--dark-secondary-color);
+    --background-color: var(--dark-background);
+}
+
+/* Styles globaux sensibles au thème */
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Styles de texte */
+body[data-theme="light"] {
+    --link-color: #0066cc;
+    --link-hover-color: #004080;
+}
+
+body[data-theme="dark"] {
+    --link-color: #4da6ff;
+    --link-hover-color: #80c1ff;
+}
+
+/* Styles de cartes et conteneurs */
+.card,
+.container {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Boutons */
+.btn {
+    background-color: var(--primary-color);
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Formulaires */
+input, 
+textarea, 
+select {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border-color: var(--primary-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Tableaux */
+table {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+table th {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    background-color: var(--background-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+}
+
+/* Animations de transition */
+* {
+    transition: background-color 0.3s ease, 
+                color 0.3s ease, 
+                border-color 0.3s ease;
+}

@@ -1,0 +1,221 @@
+/* Design System SARAFINA - Cashier Dashboard */
+:root {
+    --primary-dark:     #660017;    /* Bordeaux profond */
+    --primary-light:    #800020;    /* Bordeaux riche */
+    --secondary-dark:   #2C1810;    /* Marron foncé */
+    --accent-gold:      #D4AF37;    /* Or vintage */
+    --background-dark:  #1A1A1A;    /* Noir charbon */
+    --text-light:       #E1E1E1;    /* Gris clair */
+    --text-muted:       #A0A0A0;    /* Gris moyen */
+    --card-background:  #2D2D2D;    /* Gris très sombre */
+
+    --border-radius-sm: 8px;
+    --border-radius-md: 12px;
+    --transition-speed: 0.3s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: all var(--transition-speed) ease;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, var(--background-dark), var(--secondary-dark));
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+.cashier-dashboard {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: 100vh;
+}
+
+/* Sidebar Design */
+.sidebar {
+    background: linear-gradient(45deg, var(--secondary-dark), var(--background-dark));
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.logo img {
+    width: 150px;
+    border-radius: 50%;
+    border: 3px solid var(--accent-gold);
+    transition: transform var(--transition-speed);
+}
+
+.logo img:hover {
+    transform: scale(1.05);
+}
+
+/* User Info */
+.user-info {
+    background: var(--card-background);
+    border-radius: var(--border-radius-md);
+    padding: 1.5rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+.user-info h3 {
+    color: var(--accent-gold);
+    margin-bottom: 0.5rem;
+}
+
+.logout-btn {
+    background: var(--primary-light);
+    color: var(--text-light);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    transition: background-color var(--transition-speed);
+}
+
+.logout-btn:hover {
+    background: var(--accent-gold);
+}
+
+/* Navigation */
+.nav-menu {
+    list-style: none;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    border-radius: var(--border-radius-md);
+    color: var(--text-light);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-item i {
+    font-size: 1.2rem;
+    color: var(--accent-gold);
+}
+
+.nav-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+    transition: all var(--transition-speed);
+}
+
+.nav-item:hover::before {
+    left: 0;
+}
+
+.nav-item.active {
+    background-color: var(--accent-gold);
+    color: var(--secondary-dark);
+}
+
+/* Main Content */
+.main-content {
+    background: linear-gradient(135deg, rgba(26,26,26,0.9), rgba(44,24,16,0.9));
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+/* Orders Section */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+}
+
+.section-header h2 {
+    color: var(--accent-gold);
+    font-size: 1.5rem;
+}
+
+.orders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.order-card {
+    background: var(--card-background);
+    border-radius: var(--border-radius-md);
+    padding: 1.5rem;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.order-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.order-status {
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.status-new { background: var(--primary-light); color: var(--text-light); }
+.status-preparing { background: var(--accent-gold); color: var(--secondary-dark); }
+.status-completed { background: #388e3c; color: white; }
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .cashier-dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        position: static;
+        width: 100%;
+    }
+
+    .orders-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--card-background);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-gold);
+    border-radius: var(--border-radius-sm);
+}

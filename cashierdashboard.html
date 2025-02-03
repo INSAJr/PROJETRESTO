@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Caissier - SARAFINA</title>
+    <link rel="stylesheet" href="../css/cashierdashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+     <link rel="stylesheet" href="../css/style.css">
+         <script type="module">
+        import { checkAuth, logout } from './auth.js';
+
+        // Vérifier l'authentification au chargement de la page
+        document.addEventListener('DOMContentLoaded', () => {
+            const cashier = checkAuth();
+            if (!cashier) return;
+
+            // Afficher le nom du caissier
+            const cashierName = document.getElementById('cashier-name');
+            if (cashierName) {
+                cashierName.textContent = cashier.name;
+            }
+
+            // Configurer le bouton de déconnexion
+            const logoutBtn = document.getElementById('logout-btn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', logout);
+            }
+        });
+    </script>
+    <script type="module" src="../js/global-theme.js"></script>
+</head>
+<body  class="light-theme">
+    <div class="dashboard">
+        <!-- Menu latéral -->
+        <nav class="sidebar">
+            <div class="logo">
+                <img src="../assets/images/logo-sarafina.jpg" alt="SARAFINA Logo">
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item active" data-section="orders">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Commandes</span>
+                </li>
+                <li class="nav-item" data-section="history">
+                    <i class="fas fa-history"></i>
+                    <span>Historique</span>
+                </li>
+                <li class="nav-item" data-section="daily-report">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Rapport Journalier</span>
+                </li>
+            </ul>
+            <div class="user-info">
+                <span id="cashier-name">Caissier</span>
+                <button id="logout-btn" class="action-button logout-button" aria-label="Se déconnecter">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Déconnexion</span>
+                </button>
+            </div>
+            <button class="theme-toggle" aria-label="Changer le thème">
+                <span class="icon sun-icon">
+                    <i class="fas fa-sun"></i>
+                </span>
+                <span class="icon moon-icon">
+                    <i class="fas fa-moon"></i>
+                </span>
+            </button>
+        </nav>
+
+        <!-- Contenu principal -->
+        <main class="main-content">
+            <!-- Section des commandes -->
+            <section id="orders" class="orders-section active">
+                <div class="section-header">
+                    <div class="header-title">
+                        <h2>Commandes en cours</h2>
+                        <p class="subtitle">Gérez vos commandes actives</p>
+                    </div>
+                    <div class="header-actions">
+                        <span class="current-time" id="current-time" aria-label="Heure actuelle"></span>
+                        <span class="orders-count" aria-label="Nombre de commandes en cours">0</span>
+                    </div>
+                </div>
+                <div class="orders-grid" aria-live="polite"></div>
+            </section>
+
+            <!-- Section historique -->
+            <section id="history" class="orders-section">
+                <div class="section-header">
+                    <h2>Historique des Commandes</h2>
+                    <div class="filters">
+                        <select id="date-filter" class="filter-select">
+                            <option value="today">Aujourd'hui</option>
+                            <option value="yesterday">Hier</option>
+                            <option value="week">Cette semaine</option>
+                            <option value="month">Ce mois</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="history-grid"></div>
+            </section>
+
+            <!-- Section rapport journalier -->
+            <section id="daily-report" class="orders-section">
+                <div class="section-header">
+                    <h2>Rapport Journalier</h2>
+                    <button id="print-report" class="action-button">Imprimer le rapport</button>
+                </div>
+                <div class="report-container">
+                    <div class="report-card">
+                        <h3>Ventes Totales</h3>
+                        <p id="daily-sales">0 FCFA</p>
+                    </div>
+                    <div class="report-card">
+                        <h3>Nombre de Commandes</h3>
+                        <p id="daily-orders-count">0</p>
+                    </div>
+                    <div class="report-card">
+                        <h3>Ticket Moyen</h3>
+                        <p id="average-ticket">0 FCFA</p>
+                    </div>
+                    <div class="report-card">
+                        <h3>Mode de Paiement</h3>
+                        <div id="payment-methods-stats"></div>
+                    </div>
+                </div>
+                <div class="orders-list">
+                    <h3>Détail des Commandes</h3>
+                    <div id="daily-orders-list"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <script type="module" src="cashierdashboard.js"></script>
+</body>
+</html>
